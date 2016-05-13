@@ -1,0 +1,4 @@
+val startTime = System.nanoTime 
+val file = sc.textFile("hdfs:////dataset_hgb")
+val filter = file.map(line => (line.substring(0,10),line.substring(10,line.length()))).sortByKey(true,30).saveAsTextFile("/out/output_hgb")
+val duration_taken = System.nanoTime - startTime

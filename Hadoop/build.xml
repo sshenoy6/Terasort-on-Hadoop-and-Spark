@@ -1,0 +1,61 @@
+<!-- <?xml version="1.0" encoding="UTF-8"?>
+<project name="Sort" default="SorterMapper">
+<project name="Sort" default="SorterReducer">
+<target name="h" description="Create Jar file">
+<jar jarfile="Sort.jar" basedir="../bin/"/>
+</target>
+</project> -->
+<project name="Pa2_Hadoop" default="jar" basedir=".">
+<target name="init">
+<property name="sourceDir" value="."/>
+<property name="outputDir" value="classes"/>
+<property name="buildDir" value="jar"/>
+<property name="lib.dir" value="/home/swathi/hadoop"/>
+<path id="classpath">
+	<fileset dir="${lib.dir}" includes="**/*.jar"/>
+</path>
+<path id="classpath.run">
+  <path refid="classpath.compile"/>
+  <pathelement location="${build}/classes" />
+</path>
+</target>
+<target name="clean" depends="init">
+<delete dir="${outputDir}"/>
+<delete dir="${buildDir}"/>
+</target>
+<target name="prepare" depends="clean">
+<mkdir dir="${outputDir}"/>
+<mkdir dir="${buildDir}"/>
+</target>
+<target name="compile" depends="prepare">
+<javac srcdir="${sourceDir}" destdir="${outputDir}" classpathref="classpath"/>
+</target>
+<target name="jar" depends="compile">
+<jar destfile="${buildDir}/sort.jar" basedir="${outputDir}">
+<manifest>
+<attribute name="Main-Class" value="Sorter"/>
+</manifest>
+</jar>
+</target>
+<!-- <target name="run">
+        <java jar="${buildDir}/sort.jar" fork="true">
+        <classpath refid="classpath" />  
+            <jvmarg value="-verbose:class" />
+        </java>
+</target> -->
+<!-- <target name="jar" depends="compile">
+    <mkdir dir="${jar.dir}"/>
+    <jar destfile="${buildDir}/sort.jar" basedir="${outputDir}">
+        <zipgroupfileset dir="${lib.dir}" includes="**/*.jar"/>
+        <manifest>
+            <attribute name="Main-Class" value="Sorter"/>
+            <attribute name="Class-Path" value="config/ properties/ ${manifest.classpath}" />
+        </manifest>
+    </jar>
+</target>
+
+<target name="run">
+        <java jar="${jar.dir}/sort.jar" fork="true">
+        </java>
+    </target> -->
+</project>
